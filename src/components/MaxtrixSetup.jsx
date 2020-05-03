@@ -37,14 +37,14 @@ export default function MatrixSetup() {
     const matrix = utils.range(rowSize).map((_, i) => utils.range(colSize).map((v, x) => utils.randNum()));
     matrix[position[1]][position[0]] = 0;
 
-    const initialFoodCOunt = utils.countOneInMatrix(matrix);
+    const intialFoodCount = utils.countOneInMatrix(matrix);
 
     dispatch({
       type: 'INITIALIZE_BOARD',
       newState: {
         matrix,
-        initialFoodCOunt,
-        totalFoodCount: initialFoodCOunt,
+        intialFoodCount,
+        totalFoodCount: intialFoodCount,
         position,
       }
     })

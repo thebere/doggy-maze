@@ -2,14 +2,14 @@ import React from 'react';
 
 import Square from './Square';
 
-export default React.memo(function Row({ cellCount, list, position }) {
+export default React.memo(function Row({ list, position }) {
   return (
     <div className="row">
-      {list.map((value, i) => (
+      {list.map((value, index) => (
         <Square
-          key={i}
+          key={index}
           value={value}
-          isCurrent={position && position[0] === i}
+          isCurrent={position && position[0] === index}
         />
       ))}
     </div>
