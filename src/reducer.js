@@ -1,30 +1,17 @@
-import utils from './utils';
-
-
-const columnCount = parseInt(prompt('Enter number of columns: ', 10)) || 10; // x axis
-const rowCount = parseInt(prompt('Enter number of rows: '), 10) || 10; // y axis
-
-// For each row, generate columns
-const matrix = utils.range(rowCount).map((_, i) => utils.range(columnCount).map((v, x) => utils.randNum())); // [[0,1,1], [1,0,1], [1,1,0],[0,0,0]]
-const initalPosition = [ // current position [x axis, y axis]
-  Math.round(columnCount / 2),
-  Math.round(rowCount / 2),
-];
-
-matrix[initalPosition[1]][initalPosition[0]] = 0;
-
 const initialState = {
-  matrix,
-  position: initalPosition,
+  colSize: 0,
+  rowSize: 0,
+  matrix: [],
+  position: [],
   moveCount: 0,
-  totalFoodCount: countFoodOnBoard(matrix),
-  intialFoodCount: countFoodOnBoard(matrix),
+  totalFoodCount: 0,
+  intialFoodCount: 0,
 }
 
 const canMoveLeft = position => !(position[0] <= 0);
 const canMoveUp = position => !(position[1] <= 0);
-const canMoveRight = position => !(position[0] >= columnCount - 1);
-const canMoveDown = position => !(position[1] >= rowCount - 1);
+const canMoveRight = (position, colSize) => !(position[0] >= colSize - 1);
+const canMoveDown = (position, rowSize) => !(position[1] >= rowSize - 1);
 
 function moveLeft(position) {
   if (canMoveLeft(position)) return [position[0] - 1, position[1]];
@@ -79,19 +66,18 @@ function getNewState(state, canMove, newPosition) {
   };
 }
 
-function countFoodOnBoard(matrix) {
-  return matrix.reduce((acc, row) => {
-    return row.reduce((totalFood, food) => {
-      return totalFood + food;
-    }, acc);
-  }, 0);
-}
-
 export default function reducer(state = initialState, action) {
   let position = state.position;
   let canMove = false;
 
   switch (action.type) {
+    case 'INITIALIZE_BOARD':
+      return { ...state, ...action.newState };
+    case 'SET_DIMENSION_X':
+      return { ...state, colSize: action.colSize };
+    case 'SET_DIMENSION_Y':
+      return { ...state, rowSize: action.rowSize };
+
     case 'ArrowLeft':
       position = moveLeft(state.position);
       canMove = canMoveLeft(state.position);
@@ -104,12 +90,12 @@ export default function reducer(state = initialState, action) {
       return getNewState(state, canMove, position);
     case 'ArrowRight':
       position = moveRight(state.position);
-      canMove = canMoveRight(state.position);
+      canMove = canMoveRight(state.position, state.colSize);
 
       return getNewState(state, canMove, position);
     case 'ArrowDown':
       position = moveDown(state.position);
-      canMove = canMoveDown(state.position);
+      canMove = canMoveDown(state.position, state.rowSize);
 
       return getNewState(state, canMove, position);
     default:

@@ -1,11 +1,12 @@
 import React from 'react';
 import Row from './Row';
 
-import reducer, { initialState } from '../reducer';
+import DoggyMazeContext from '../context';
 
 export default function Board() {
   const boardRef = React.useRef();
-  const [state, dispatch] = React.useReducer(reducer, initialState);
+  const context = React.useContext(DoggyMazeContext);
+  const { dispatch } = context;
 
   React.useEffect(() => {
     boardRef.current.focus();
@@ -16,23 +17,26 @@ export default function Board() {
     });
   }, []);
 
-
   return (
     <>
       {
-        state.totalFoodCount <= 0
-          ? <h4>Total moves: {state.moveCount}; Total meat bone: {state.intialFoodCount}</h4>
+        context.totalFoodCount <= 0
+          ? <h4>Total moves: {context.moveCount}; Total meat bone: {context.intialFoodCount}</h4>
           : ''
       }
 
       <div className="board" ref={boardRef} tabIndex="0">
-        {state.matrix.map((list, index) => (
-          <Row
-            key={index}
-            position={index === state.position[1] ? state.position : null}
-            list={list}
-          />
-        ))}
+        {
+          context.matrix.length
+            ? context.matrix.map((list, index) => (
+              <Row
+                key={index}
+                position={index === context.position[1] ? context.position : null}
+                list={list}
+              />
+            ))
+            : null
+        }
       </div>
     </>
   )
