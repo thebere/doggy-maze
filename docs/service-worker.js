@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/doggy-maze/precache-manifest.8d800246eda94845cbee110f0ea0a8aa.js"
+  "/doggy-maze/precache-manifest.4a172b771d99a6f21c63845b7b3f631e.js"
 );
 
 self.addEventListener('message', (event) => {

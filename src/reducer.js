@@ -11,20 +11,20 @@ const initialState = {
 const canMoveLeft = position => !(position[0] <= 0);
 const canMoveUp = position => !(position[1] <= 0);
 const canMoveRight = (position, colSize) => !(position[0] >= colSize - 1);
-const canMoveDown = (position, rowSize) => !(position[1] >= rowSize - 1);
+const canMoveDown = (position, rowSize) => !(position[1] >= (rowSize - 1));
 
 function moveLeft(position) {
   if (canMoveLeft(position)) return [position[0] - 1, position[1]];
   return position;
 }
 
-function moveRight(position) {
-  if (canMoveRight(position)) return [position[0] + 1, position[1]];
+function moveRight(position, colSize) {
+  if (canMoveRight(position, colSize)) return [position[0] + 1, position[1]];
   return position;
 }
 
-function moveDown(position) {
-  if (canMoveDown(position)) return [position[0], position[1] + 1];
+function moveDown(position, rowSize) {
+  if (canMoveDown(position, rowSize)) return [position[0], position[1] + 1];
   return position;
 }
 
@@ -89,12 +89,12 @@ export default function reducer(state = initialState, action) {
 
       return getNewState(state, canMove, position);
     case 'ArrowRight':
-      position = moveRight(state.position);
+      position = moveRight(state.position, state.colSize);
       canMove = canMoveRight(state.position, state.colSize);
 
       return getNewState(state, canMove, position);
     case 'ArrowDown':
-      position = moveDown(state.position);
+      position = moveDown(state.position, state.rowSize);
       canMove = canMoveDown(state.position, state.rowSize);
 
       return getNewState(state, canMove, position);

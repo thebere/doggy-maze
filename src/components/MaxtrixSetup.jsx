@@ -11,14 +11,14 @@ export default function MatrixSetup() {
   function setY(e) {
     dispatch({
       type: 'SET_DIMENSION_X',
-      colSize: parseInt(e.target.value, 10),
+      colSize: Math.abs(parseInt(e.target.value, 10)),
     });
   }
 
   function setX(e) {
     dispatch({
       type: 'SET_DIMENSION_Y',
-      rowSize: parseInt(e.target.value, 10),
+      rowSize: Math.abs(parseInt(e.target.value, 10)),
     });
   }
 
@@ -54,14 +54,14 @@ export default function MatrixSetup() {
 
   return (
     <form onSubmit={onStart} className="doggymazeform">
-      <label for="column">Enter column size:</label>
+      <label htmlFor="column">Enter column size:</label>
       <input name="column" className="input-number" onChange={setY} type="number" max="30" />
 
       <br />
       <br />
       <br />
 
-      <label for="row">Enter row size:</label>
+      <label htmlFor="row">Enter row size:</label>
       <input name="row" className="input-number" onChange={setX} type="number" max="30" />
 
 

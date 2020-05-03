@@ -25,6 +25,30 @@ export default function Board() {
           : ''
       }
 
+      <div className="navigation-btns">
+        <div className="btn-row">
+          <div className="nav-btn up-arr" onClick={() => dispatch({ type: 'ArrowUp' })}>
+            {"^"}
+          </div>
+        </div>
+
+        <div className="btn-row space-btw">
+          <div className="nav-btn left-arr" onClick={() => dispatch({ type: 'ArrowLeft' })}>
+            {"<"}
+          </div>
+
+          <div className="nav-btn right-arr" onClick={() => dispatch({ type: 'ArrowRight' })}>
+            {">"}
+          </div>
+        </div>
+
+        <div className="btn-row">
+          <div className="nav-btn down-arr" onClick={() => dispatch({ type: 'ArrowDown' })}>
+            {"V"}
+          </div>
+        </div>
+      </div>
+
       <div className="board" ref={boardRef} tabIndex="0">
         {
           context.matrix.length
