@@ -1,13 +1,76 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+body,
+#root {
+  overflow: hidden;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.app {
+  min-height: 100vh;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  overflow: hidden;
+}
+
+.board {
+  outline: none;
+  border: 1px rgba(0, 0, 0, 0.1) solid;
+}
+
+.row {
+  display: block;
+  height: 46px;
+  position: relative;
+}
+
+.square {
+  height: 45px;
+  width: 50px;
+  border-right: 1px rgba(0, 0, 0, 0.1) solid;
+  border-bottom: 1px rgba(0, 0, 0, 0.1) solid;
+  cursor: pointer;
+  position: relative;
+  float: left;
+  text-align: center;
+  line-height: 50px;
+  font-size: 12px;
+}
+
+.square.active {
+  font-size: 30px;
+  z-index: 3;
+  animation: 1.2s blinkingBorder infinite;
+}
+
+.row:last-child .square {
+  border-bottom: none;
+}
+
+.row .square:last-child {
+  border-right: none;
+}
+
+@keyframes blinkingBorder {
+  0% {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+
+  49% {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+
+  60% {
+    box-shadow: none;
+  }
+
+  99% {
+    box-shadow: none;
+  }
+
+  100% {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
 }
