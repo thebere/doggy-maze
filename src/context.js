@@ -11,7 +11,7 @@ function DoggyMazeProvider({ children }) {
 
   return (
     <DoggyMazeContext.Provider value={{ ...state, dispatch }}>
-      {children(state)}
+      {children}
     </DoggyMazeContext.Provider>
   )
 }

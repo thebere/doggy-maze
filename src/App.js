@@ -7,12 +7,10 @@ function App() {
   return (
     <div className="app">
       <DoggyMazeProvider>
-        {() => (
-          <>
-            <MatrixSetup />
-            <Board />
-          </>
-        )}
+        <>
+          <MatrixSetup />
+          <Board />
+        </>
       </DoggyMazeProvider>
     </div>
   );
